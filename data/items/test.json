@@ -1,0 +1,10 @@
+{
+	"name": "Test Item",
+	"desc": "This is an item.",
+	"key": "no",
+	"value": 200,
+	"use": {
+		"type": "potion",
+		"value": 25
+	}
+}

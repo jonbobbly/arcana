@@ -1,0 +1,21 @@
+{
+	"layout": "twoway",
+	"title": "Welcome!",
+	"items": [
+		{
+			"name": "New Game",
+			"desc": "Start a new game.",
+			"action": "newgame"
+		},
+		{
+			"name": "Debug Menu",
+			"desc": "View the debug menu.",
+			"action": "debug"
+		},
+		{
+			"name": "Quit",
+			"desc": "You'll never win, you know.",
+			"action": "quit"
+		}
+	]
+}

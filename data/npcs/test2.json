@@ -1,0 +1,11 @@
+{
+	"name": "Test NPC",
+	"text": "Hello! I'm also a test NPC! Let's fight!",
+	"action": "battle",
+	"party":[
+		{
+			"name": "monkey",
+			"level": 12
+		}
+	]
+}

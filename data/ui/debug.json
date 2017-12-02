@@ -1,0 +1,42 @@
+{
+	"layout": "twoway",
+	"title": "Debug",
+	"items": [
+		{
+			"name": "View arcana",
+			"desc": "Shows a list of loaded arcana.",
+			"action": "arcana_list"
+		},
+		{
+			"name": "View areas",
+			"desc": "Shows a list of all the loaded areas available to explore.",
+			"action": "area_list"
+		},
+		{
+			"name": "View items",
+			"desc": "Shows a list of all the npcs items in the universe.",
+			"action": "item_list"
+		},
+		{
+			"name": "View moves",
+			"desc": "Shows a list of all the possible actions an arcana can take.",
+			"action": "move_list"
+		},
+		{
+			"name": "View npcs",
+			"desc": "Shows a list of all the people. Ever.",
+			"action": "npc_list"
+		},
+		{
+			"name": "Options",
+			"desc": "Adjust various settings.",
+			"action": "loadmenu",
+			"args": ["options.json"]
+		},
+		{
+			"name": "Quit",
+			"desc": "Exit to terminal.",
+			"action": "quit"
+		}
+	]
+}

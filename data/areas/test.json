@@ -1,0 +1,13 @@
+{
+	"name": "Test Area",
+	"desc": "This is a test area",
+	"conns": ["forest", "beach", "mountain"],
+	"npcs": ["test", "test2"],
+	"arcana": [
+		{
+			"name": "test",
+			"level": 10,
+			"rarity": 1
+		}
+	]
+}

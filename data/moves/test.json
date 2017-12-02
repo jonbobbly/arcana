@@ -1,0 +1,8 @@
+{
+	"name": "Test Move",
+	"desc": "Some fire or something happens.",
+	"acc": 100,
+	"pow": 35,
+	"effect": "burn",
+	"effchance": 10
+}
