@@ -6,3 +6,6 @@ class State(object):
 
     def update(self, choice):
         pass
+
+    def draw(self, g):
+        pass

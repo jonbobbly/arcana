@@ -9,7 +9,7 @@ class Game():
     def run(self):
         isRunning = True
         while isRunning:
-            choice = self.g.show_menu( self.cur_state.menu )
+            choice = self.cur_state.draw(self.g)
             self.cur_state.update( choice )
             if self.cur_state.done == True:
                 if self.cur_state.next_state == None:

@@ -28,11 +28,11 @@ class CursesDisplay():
         self.desc_pad.refresh()
         self.list_pad.refresh(l_start,0, 1,0, 10,30)
 
-    def show_menu(self, gmenu):
-        gmenu.list_titles(self.list_pad)
-        self.title_bar.erase()
-        self.title_bar.chgat(0,0, self.hilite_color)
-        self.title_bar.addstr(gmenu.menu_title(), self.hilite_color)
+    def show_menu(self, gmenu, title_bar, list_pad, desc_pad):
+        gmenu.list_titles(list_pad)
+        title_bar.erase()
+        title_bar.chgat(0,0, self.hilite_color)
+        title_bar.addstr(gmenu.menu_title(), self.hilite_color)
         start = 0
         selected = 0
         key = 0
@@ -43,15 +43,17 @@ class CursesDisplay():
             if selected > start + self.list_height:
                 start += 1
 
-            self.list_pad.chgat(selected, 0, self.hilite_color)
+            list_pad.chgat(selected, 0, self.hilite_color)
 
-            self.desc_pad.erase()
-            self.desc_pad.addstr( gmenu.get_desc(selected) )
+            desc_pad.erase()
+            desc_pad.addstr( gmenu.get_desc(selected) )
 
-            self.redraw(start)
+            title_bar.refresh()
+            desc_pad.refresh()
+            list_pad.refresh(start,0, 1,0, 10,30)
 
-            self.list_pad.chgat(selected, 0, self.normal_color)
-            key = self.list_pad.getch()
+            list_pad.chgat(selected, 0, self.normal_color)
+            key = list_pad.getch()
             if key == ord('j'):
                 selected += 1
             if key == ord('k'):
