@@ -7,53 +7,55 @@ class CursesDisplay():
 
         curses.init_pair(1, curses.COLOR_BLACK, curses.COLOR_WHITE)
         curses.init_pair(2, curses.COLOR_WHITE, curses.COLOR_BLUE)
-
         self.hilite_color = curses.color_pair(2)
         self.normal_color = curses.A_NORMAL
 
-        self.title_bar = curses.newwin(1, 80, 0, 0)
-        self.desc_pad = curses.newwin(10, 30, 1, 31)
-        self.list_pad = curses.newpad(100, 30)
-        self.list_height = 10
+        self.windows = { "title": curses.newwin(1, 80, 0, 0),
+                         "desc": curses.newwin(10, 30, 1, 31),
+                         "listpad": curses.newpad(100, 30),
+                         "listwiny": 1,
+                         "listwinx": 0,
+                         "listwinh": 10,
+                         "listwinw": 30
+                       }
 
-        self.title_bar.chgat(0,0, self.hilite_color)
+    def show_menu(self, gmenu):
+        gmenu.list_titles(self.windows["listpad"])
 
-    def clear(self):
-        self.title_bar.erase()
-        self.desc_pad.erase()
-        self.list_pad.erase()
+        self.windows["title"].erase()
+        self.windows["title"].chgat(0,0, self.hilite_color)
+        self.windows["title"].addstr(
+                gmenu.menu_title(), self.hilite_color
+        )
 
-    def redraw(self, l_start = 0):
-        self.title_bar.refresh()
-        self.desc_pad.refresh()
-        self.list_pad.refresh(l_start,0, 1,0, 10,30)
-
-    def show_menu(self, gmenu, title_bar, list_pad, desc_pad):
-        gmenu.list_titles(list_pad)
-        title_bar.erase()
-        title_bar.chgat(0,0, self.hilite_color)
-        title_bar.addstr(gmenu.menu_title(), self.hilite_color)
         start = 0
         selected = 0
         key = 0
-
         while key != ord('q'):
             if selected < start:
                 start -= 1
-            if selected > start + self.list_height:
+            if selected > start + self.windows["listwinh"]:
                 start += 1
 
-            list_pad.chgat(selected, 0, self.hilite_color)
+            self.windows["listpad"].chgat(selected, 0, self.hilite_color)
 
-            desc_pad.erase()
-            desc_pad.addstr( gmenu.get_desc(selected) )
+            self.windows["desc"].erase()
+            self.windows["desc"].addstr(
+                    gmenu.get_desc(selected)
+            )
 
-            title_bar.refresh()
-            desc_pad.refresh()
-            list_pad.refresh(start,0, 1,0, 10,30)
+            self.windows["title"].refresh()
+            self.windows["desc"].refresh()
+            self.windows["listpad"].refresh(
+                start, 0, 
+                self.windows["listwiny"], self.windows["listwinx"],
+                self.windows["listwinh"], self.windows["listwinw"]
+            )
 
-            list_pad.chgat(selected, 0, self.normal_color)
-            key = list_pad.getch()
+            self.windows["listpad"].chgat(
+                    selected, 0, self.normal_color
+            )
+            key = self.windows["listpad"].getch()
             if key == ord('j'):
                 selected += 1
             if key == ord('k'):

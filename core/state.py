@@ -4,8 +4,5 @@ class State(object):
         self.next_state = None
         self.done = False
 
-    def update(self, choice):
-        pass
-
-    def draw(self, g):
+    def run(self, g):
         pass
