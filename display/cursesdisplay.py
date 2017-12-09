@@ -1,69 +1,71 @@
 import curses
 
-class CursesDisplay():
-    def __init__(self, stdscr):
-        stdscr.clear()
-        curses.curs_set(False)
+def init(stdscr):
+    stdscr.clear()
+    curses.curs_set(False)
+    curses.init_pair(1, curses.COLOR_BLACK, curses.COLOR_WHITE)
+    curses.init_pair(2, curses.COLOR_WHITE, curses.COLOR_BLUE)
+    curses.init_pair(3, curses.COLOR_WHITE, curses.COLOR_RED)
 
-        curses.init_pair(1, curses.COLOR_BLACK, curses.COLOR_WHITE)
-        curses.init_pair(2, curses.COLOR_WHITE, curses.COLOR_BLUE)
-        self.hilite_color = curses.color_pair(2)
-        self.normal_color = curses.A_NORMAL
+def show_menu(gmenu, list_pad, desc_box):
+    hilite = curses.color_pair(2)
+    normal = curses.A_NORMAL
+    gmenu.list_titles(list_pad.pad)
 
-        self.windows = { "title": curses.newwin(1, 80, 0, 0),
-                         "desc": curses.newwin(10, 30, 1, 31),
-                         "listpad": curses.newpad(100, 30),
-                         "listwiny": 1,
-                         "listwinx": 0,
-                         "listwinh": 10,
-                         "listwinw": 30
-                       }
+    start = 0
+    selected = 0
+    key = 0
+    while key != ord('q'):
+        if selected < start:
+            start -= 1
+        if selected > start + list_pad.dh:
+            start += 1
 
-    def show_menu(self, gmenu):
-        gmenu.list_titles(self.windows["listpad"])
+        list_pad.pad.chgat(selected, 0, hilite)
 
-        self.windows["title"].erase()
-        self.windows["title"].chgat(0,0, self.hilite_color)
-        self.windows["title"].addstr(
-                gmenu.menu_title(), self.hilite_color
+        desc_box.box.erase()
+        desc_box.box.addstr(
+                gmenu.get_desc(selected)
         )
 
-        start = 0
-        selected = 0
-        key = 0
-        while key != ord('q'):
-            if selected < start:
-                start -= 1
-            if selected > start + self.windows["listwinh"]:
-                start += 1
+        desc_box.refresh()
+        list_pad.refresh(start)
 
-            self.windows["listpad"].chgat(selected, 0, self.hilite_color)
+        list_pad.pad.chgat(
+                selected, 0, normal
+        )
+        key = list_pad.pad.getch()
+        if key == ord('j'):
+            selected += 1
+        if key == ord('k'):
+            selected -= 1
+        if selected < 0:
+            selected = 0
+        if selected >= gmenu.num_items():
+            selected = gmenu.num_items()-1
+        if key == ord('\n'):
+            return gmenu.get_item(selected)
+    return "none"
 
-            self.windows["desc"].erase()
-            self.windows["desc"].addstr(
-                    gmenu.get_desc(selected)
-            )
+class DisplayBox():
+    def __init__(self, h, w, r, c):
+        self.box = curses.newwin(h, w, r, c)
 
-            self.windows["title"].refresh()
-            self.windows["desc"].refresh()
-            self.windows["listpad"].refresh(
-                start, 0, 
-                self.windows["listwiny"], self.windows["listwinx"],
-                self.windows["listwinh"], self.windows["listwinw"]
-            )
+    def refresh(self):
+        self.box.refresh()
 
-            self.windows["listpad"].chgat(
-                    selected, 0, self.normal_color
-            )
-            key = self.windows["listpad"].getch()
-            if key == ord('j'):
-                selected += 1
-            if key == ord('k'):
-                selected -= 1
-            if selected < 0:
-                selected = 0
-            if selected >= gmenu.num_items():
-                selected = gmenu.num_items()-1
-            if key == ord('\n'):
-                return gmenu.get_item(selected)
-        return "none"
+class ListBox():
+    def __init__(self, h, w, r, c, dh):
+        self.h = h
+        self.w = w
+        self.r = r
+        self.c = c
+        self.dh = dh
+        self.pad = curses.newpad(h, w)
+
+    def refresh(self, top, left = 0, h = None, w = None):
+        if h == None:
+            h = self.dh
+        if w == None:
+            w = self.w
+        self.pad.refresh( top,left, self.r,self.c, h,w )

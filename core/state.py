@@ -4,5 +4,12 @@ class State(object):
         self.next_state = None
         self.done = False
 
+    def enter(self):
+        self.next_state = None
+        self.done = False
+
+    def exit(self):
+        pass
+
     def run(self, g):
         pass

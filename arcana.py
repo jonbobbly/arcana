@@ -10,13 +10,13 @@ import display
 rm = core.ResourceManager()
 
 def main(stdscr):
-    g = display.CursesDisplay(stdscr)
+    display.init(stdscr)
     states = {
-            "Splash": core.SplashMenu(),
-            "Debug": core.DebugMenu()
+            "Splash": core.SplashMenu(display),
+            "Debug": core.DebugMenu(display)
             }
 
-    game = core.Game(g, states, "Splash")
+    game = core.Game(display, states, "Splash")
     game.run()
 
 wrapper(main)
