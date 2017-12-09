@@ -13,3 +13,7 @@ class State(object):
 
     def run(self, g):
         pass
+
+    def movestate(self, statename):
+        self.next_state = statename
+        self.done = True

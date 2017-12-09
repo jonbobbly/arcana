@@ -6,3 +6,4 @@ from manager import *
 #Menus
 from splash import *
 from debug import *
+from arcana_list import *

@@ -12,13 +12,14 @@ class DebugMenu(State):
         self.desc_box = g.DisplayBox(10, 30, 1, 32)
 
     def run(self, g):
-        self.title.box.erase()
-        self.title.box.addstr(0, 0, "!!! DEBUG !!!")
-        self.title.box.chgat(0, 0, curses.color_pair(3))
+        self.title.erase()
+        self.title.write("!!! DEBUG !!!")
+        self.title.hilight()
         self.title.refresh()
 
         choice = g.show_menu(self.menu, self.list_pad, self.desc_box)
 
         if choice["action"] == "quit":
-            self.next_state = "Splash"
-            self.done = True
+            self.movestate("Splash")
+        if choice["action"] == "arcana_list":
+            self.movestate("dbg_arcana_list")

@@ -18,6 +18,7 @@ class Game():
                     self.next_state( self.cur_state.next_state )
 
     def next_state(self, state_name):
+        self.g.clearscreen()
         self.cur_state.exit()
         self.cur_state = self.states[ state_name ]
         self.cur_state.enter()
