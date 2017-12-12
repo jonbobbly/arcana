@@ -10,7 +10,7 @@ class Game():
     def run(self):
         isRunning = True
         while isRunning:
-            self.cur_state.run(self.g)
+            self.cur_state.run()
             if self.cur_state.done == True:
                 if self.cur_state.next_state == None:
                     isRunning = False

@@ -7,14 +7,15 @@ from curses import wrapper
 import core
 import display
 
-rm = core.ResourceManager()
-
 def main(stdscr):
+    persist = {"g": display,
+               "res": core.ResourceManager()
+              }
     display.init(stdscr)
     states = {
-            "Splash": core.SplashMenu(display),
-            "Debug": core.DebugMenu(display),
-            "dbg_arcana_list": core.Dbg_arcana_list(display)
+            "Splash": core.SplashMenu(persist),
+            "Debug": core.DebugMenu(persist),
+            "dbg_arcana_list": core.Dbg_arcana_list(persist)
             }
 
     game = core.Game(display, states, "Splash")
