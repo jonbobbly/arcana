@@ -1,8 +1,8 @@
 import state
 
 class Game():
-    def __init__(self, g, states, state_name):
-        self.g = g
+    def __init__(self, states, state_name, persist):
+        self.persist = persist
         self.states = states
         self.cur_state = self.states[state_name]
         self.cur_state.enter()
@@ -18,7 +18,7 @@ class Game():
                     self.next_state( self.cur_state.next_state )
 
     def next_state(self, state_name):
-        self.g.clearscreen()
+        self.persist["g"].clearscreen()
         self.cur_state.exit()
         self.cur_state = self.states[ state_name ]
         self.cur_state.enter()
