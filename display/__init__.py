@@ -1,1 +1,1 @@
-from cursesdisplay import *
+from .cursesdisplay import *

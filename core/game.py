@@ -1,5 +1,3 @@
-import state
-
 class Game():
     def __init__(self, states, state_name, persist):
         self.persist = persist

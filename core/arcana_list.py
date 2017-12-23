@@ -1,5 +1,5 @@
 import core
-from state import State
+from .state import State
 
 class Dbg_arcana_list(State):
     def __init__(self, persist):

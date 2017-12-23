@@ -1,7 +1,7 @@
 import curses
 
 import core
-from state import State
+from .state import State
 
 class SplashMenu(State):
     def __init__(self, persist):
