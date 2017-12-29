@@ -1,0 +1,29 @@
+{
+	"name": "Test Arcana Numero Dos",
+	"desc": "This is another test arcana.",
+	"xpclass": "medium",
+	"stats": {
+		"hp": 10,
+		"atk": 10,
+		"def": 10,
+		"satk": 10,
+		"sdef": 10,
+		"spd": 10
+	},
+	"moves": [
+		{
+			"name": "Scratch",
+			"method": "level",
+			"level": 0
+		},
+		{
+			"name": "Fire Blast",
+			"method": "tm"
+		},
+		{
+			"name": "Flamethrower",
+			"method": "level",
+			"level": 40
+		}
+	]
+}

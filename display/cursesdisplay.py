@@ -50,7 +50,7 @@ def show_menu(gmenu, list_pad, desc_box):
             selected = gmenu.num_items()-1
         if key == ord('\n'):
             return gmenu.get_item(selected)
-    return "none"
+    return {"action": "quit"}
 
 class DisplayBox():
     def __init__(self, h, w, r, c):
